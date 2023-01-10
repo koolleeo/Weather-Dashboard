@@ -363,3 +363,27 @@ clearTimeout();
     }
 
 };
+
+
+// on document load function
+
+$(document).ready(function(){
+
+
+    //immediately invoked function to set up initial page rendering and update the default local area
+    
+    /* IIFE */
+    (function initialise() {
+    
+        weatherApiCall();
+        setTimeout(function(){ renderStorage('London');
+        cityHistory();
+        loadCityHistory();
+    },3000)
+    
+    })();
+    
+    
+    
+    
+    });
