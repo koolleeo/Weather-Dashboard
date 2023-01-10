@@ -383,7 +383,22 @@ $(document).ready(function(){
     
     })();
     
+    //create a on click event to trigger get results function if search button pressed
+
+$("#search-button").on('click',function(event){
+
+    event.preventDefault();
     
+    //capture the search input
+    let searchTerm = $("#search-input").val();
+    searchTerm = capitalise(searchTerm);
+
+    //clear searchTerm from input element
+    $("#search-input").val('');
+
+    getResults(searchTerm);
+
+})
     
     
     });
