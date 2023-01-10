@@ -232,3 +232,62 @@ function loadCityHistory() {
     })
 
 };
+
+//create a function to render storage data
+
+function renderStorage(city) {
+
+
+    let storage = localStorage.getItem("weatherForecast");
+    let storageArr = JSON.parse(storage);
+
+    if (storageArr != null) {
+
+        $("#main-body").val('');
+
+        storageArr.forEach(arr => {
+
+            if (arr.city == city) {
+
+                    let today = $("#main-body");
+
+                    
+                    $("#city").text(`${arr.city} (${arr.currentDate})`);
+
+                    let iconUrl = `http://openweathermap.org/img/wn/${arr.forecast[0].icon}@2x.png`;
+                    $("#icon").attr("src",iconUrl)
+         
+                    $("#temp").text(`Temp : ${arr.forecast[0].temp} °C`);
+
+                    $("#wind").text(`Wind : ${arr.forecast[0].wind} kph`);
+
+                    $("#hum").text(`Wind : ${arr.forecast[0].humidity} %`);
+
+                    let forecastArr = arr.forecast;
+
+                    forecastArr.forEach((arr, index) => {
+
+                        $(`#city-${index}`).text(`${arr.date}`);
+    
+                        let iconUrl = `http://openweathermap.org/img/wn/${arr.icon}@2x.png`;
+                        $(`#icon-${index}`).attr("src", iconUrl);
+    
+                        $(`#temp-${index}`).text(`Temp : ${arr.temp} °C`);
+    
+                        $(`#wind-${index}`).text(`Wind : ${arr.wind} kph`);
+    
+                        $(`#hum-${index}`).text(`Wind : ${arr.humidity} %`);
+
+                    })
+
+            } else {
+
+                return;
+
+            }
+
+        })
+
+    }
+
+};
