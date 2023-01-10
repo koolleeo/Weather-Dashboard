@@ -132,3 +132,34 @@ function weatherApiCall(city) {
     });
     
 };
+
+//create a function to update local storage with input
+
+
+function updateLocalStorage(object){
+
+    //get local storage - overwrite when city, but with different date already exists
+    let storage = localStorage.getItem("weatherForecast");
+    let storageArr = JSON.parse(storage);
+
+    //create an empty array and push instance of storage object
+    let array = [];
+    array.push(object);
+
+    //if storage array already exists, replace existing entry if exists and recreate array of objects for current date
+    if (storageArr != null) {
+
+        storageArr.forEach(arr => {
+    
+            if (arr.city == object.city) {
+                return;
+            } else {
+                array.push(arr)
+            }
+        })
+    
+        }
+
+        localStorage.setItem("weatherForecast", JSON.stringify(array));
+
+}
