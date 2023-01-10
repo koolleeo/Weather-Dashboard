@@ -37,3 +37,7 @@ The following image shows the web application's appearance and functionality:
 
 ![image](https://user-images.githubusercontent.com/86853558/211680496-690655d9-e26f-4778-8c28-1711cf3ad65c.png)
 
+## URL to published web application
+
+https://koolleeo.github.io/Weather-Dashboard/
+
