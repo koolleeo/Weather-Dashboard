@@ -133,6 +133,7 @@ function weatherApiCall(city) {
     
 };
 
+
 //create a function to update local storage with input
 
 
@@ -163,6 +164,7 @@ function updateLocalStorage(object){
         localStorage.setItem("weatherForecast", JSON.stringify(array));
 
 }
+    
 
 //create a function to capitalise input
 
@@ -216,6 +218,7 @@ function cityHistory() {
 
 };
 
+
 //create a function to load City history on initial load
 
 function loadCityHistory() {
@@ -232,6 +235,7 @@ function loadCityHistory() {
     })
 
 };
+
 
 //create a function to render storage data
 
@@ -370,20 +374,21 @@ clearTimeout();
 $(document).ready(function(){
 
 
-    //immediately invoked function to set up initial page rendering and update the default local area
-    
-    /* IIFE */
-    (function initialise() {
-    
-        weatherApiCall();
-        setTimeout(function(){ renderStorage('London');
-        cityHistory();
-        loadCityHistory();
-    },3000)
-    
-    })();
-    
-    //create a on click event to trigger get results function if search button pressed
+//immediately invoked function to set up initial page rendering and update the default local area
+
+/* IIFE */
+(function initialise() {
+
+    weatherApiCall();
+    setTimeout(function(){ renderStorage('London');
+    cityHistory();
+    loadCityHistory();
+},3000)
+
+})();
+
+
+//create a on click event to trigger get results function if search button pressed
 
 $("#search-button").on('click',function(event){
 
@@ -399,6 +404,26 @@ $("#search-button").on('click',function(event){
     getResults(searchTerm);
 
 })
-    
-    
-    });
+
+
+//create a on click event to trigger get results function if history button pressed
+
+$(document).on('click','.search-history',function(event){
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    searchTerm = event.target.dataset.set;
+
+    getResults(searchTerm);
+
+})
+
+
+});
+
+
+
+
+
+
