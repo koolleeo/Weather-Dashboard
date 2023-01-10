@@ -191,3 +191,28 @@ function capitalise(str){
     return cityCapitalise;
     
 };
+
+//create a function to load history into cityArray
+
+function cityHistory() {
+
+    let storage = localStorage.getItem("weatherForecast");
+    let storageArr = JSON.parse(storage);
+
+    //create an empty array and push instance of storage object
+    let array = [];   
+
+    storageArr.forEach(arr => {
+
+        if (arr.city != 'London'){
+
+        array.push(arr);
+
+        } else {return};
+        
+    })
+
+    cityArray = array;
+
+};
+
