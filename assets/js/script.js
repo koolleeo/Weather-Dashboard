@@ -291,3 +291,75 @@ function renderStorage(city) {
     }
 
 };
+
+
+//create a function to get results based on the search term
+//use local storage if data up to date or call api for new or outdated data
+
+function getResults(searchTerm){
+
+    let date = moment().format('DD/MM/YYYY');
+
+    if (cityArray.some(arr => arr['searchTerm'] == searchTerm) && cityArray) {
+
+        cityArray.forEach(arr => {
+
+            if (arr.searchTerm == searchTerm && arr.currentDate == date) {
+
+                renderStorage(arr.city)
+
+            } else {
+
+                return
+
+            }
+        })
+
+    } else {
+
+
+    weatherApiCall(searchTerm == '' ? geoCityDefault : searchTerm);
+
+    setTimeout(()=>{cityHistory()},4000);
+
+    clearTimeout();
+
+    setTimeout(()=> {
+
+    if (cityArray.some(arr => arr['searchTerm'] == searchTerm)) {
+
+        cityArray.forEach(arr => {
+
+            if (arr.searchTerm == searchTerm) {
+
+                renderStorage(arr.city)
+
+            } else {
+
+                return
+
+            }
+        })
+        
+
+    } 
+
+
+if ($(`[data-set="${searchTerm}"]`).length === 0 && rejected.includes(searchTerm) === false) {
+        
+    let div = $('#history');
+    let button = $("<button>");
+    button.addClass('btn search-button search-history btn-secondary m-2');
+    button.attr("data-set", searchTerm)
+    button.text(searchTerm);
+    div.append(button);
+    
+}
+
+},8000)
+
+clearTimeout();
+
+    }
+
+};
