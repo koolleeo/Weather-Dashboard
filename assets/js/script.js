@@ -216,3 +216,19 @@ function cityHistory() {
 
 };
 
+//create a function to load City history on initial load
+
+function loadCityHistory() {
+
+    cityArray.forEach(arr => {
+
+        let div = $('#history');
+        let button = $("<button>");
+        button.addClass('btn search-button search-history btn-secondary m-2');
+        button.attr("data-set", arr.city == 'London' ? arr.city : arr.searchTerm);
+        button.text(arr.city == 'London' ? arr.city : arr.searchTerm);
+        div.append(button);
+
+    })
+
+};
