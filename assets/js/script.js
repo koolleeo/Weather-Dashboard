@@ -163,3 +163,31 @@ function updateLocalStorage(object){
         localStorage.setItem("weatherForecast", JSON.stringify(array));
 
 }
+
+//create a function to capitalise input
+
+function capitalise(str){
+
+    let string = str.split('');
+    let cityCapitalise = '';
+
+    string.forEach((arr, index) => {
+
+       if(index == 0) {
+
+        cityCapitalise += arr.toUpperCase();
+
+       } else if (index > 0 && string[index-1] == ' ') {
+
+        cityCapitalise += arr.toUpperCase();
+
+       } else {
+
+        cityCapitalise += arr.toLowerCase();
+
+       }
+    })
+
+    return cityCapitalise;
+    
+};
