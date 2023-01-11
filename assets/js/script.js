@@ -360,17 +360,17 @@ function getResults(searchTerm){
 
     let date = moment().format('DD/MM/YYYY');
 
-    if (cityArray.some(arr => arr['searchTerm'] == searchTerm) && cityArray) {
+    if (searchTerm == 'London') {
+
+        renderStorage('London');
+
+    } else if (cityArray.some(arr => arr['searchTerm'] == searchTerm)) {
 
         cityArray.forEach(arr => {
 
-            if (arr.searchTerm == searchTerm && arr.currentDate == date) {
+            if ((arr.searchTerm == searchTerm && arr.currentDate == date)) {
 
                 renderStorage(arr.city)
-
-            } else {
-
-                return
 
             }
         })
