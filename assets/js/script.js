@@ -247,7 +247,7 @@ function renderStorage(city) {
 
     if (storageArr != null) {
 
-        $("#main-body").val('');
+        $("#main-body").remove();
 
         storageArr.forEach(arr => {
 
@@ -255,32 +255,91 @@ function renderStorage(city) {
 
                     let today = $("#main-body");
 
-                    
-                    $("#city").text(`${arr.city} (${arr.currentDate})`);
+                    // $("#city").text(`${arr.city} (${arr.currentDate})`);
+
+                    // let iconUrl = `http://openweathermap.org/img/wn/${arr.forecast[0].icon}@2x.png`;
+                    // $("#icon").attr("src",iconUrl)
+         
+                    // $("#temp").text(`Temp : ${arr.forecast[0].temp} °C`);
+
+                    // $("#wind").text(`Wind : ${arr.forecast[0].wind} kph`);
+
+                    // $("#hum").text(`Wind : ${arr.forecast[0].humidity} %`);
+
+                    // let forecastArr = arr.forecast;
+
+                    let h1 = $("<h1>");
+                    h1.text(`${arr.city} (${arr.currentDate})`);
+                    today.append(h1);
 
                     let iconUrl = `http://openweathermap.org/img/wn/${arr.forecast[0].icon}@2x.png`;
-                    $("#icon").attr("src",iconUrl)
-         
-                    $("#temp").text(`Temp : ${arr.forecast[0].temp} °C`);
+                    let icon = $("<img>");
+                    icon.attr("src", iconUrl);
+                    today.append(icon);
 
-                    $("#wind").text(`Wind : ${arr.forecast[0].wind} kph`);
+                    let temp = $("<p>");
+                    temp.text(`Temp : ${arr.forecast[0].temp} °C`);
+                    today.append(temp);
 
-                    $("#hum").text(`Wind : ${arr.forecast[0].humidity} %`);
+                    let wind = $("<p>");
+                    wind.text(`Wind : ${arr.forecast[0].wind} kph`);
+                    today.append(wind);
+
+                    let hum = $("<p>");
+                    hum.text(`Wind : ${arr.forecast[0].humidity} %`);
+                    today.append(hum);
 
                     let forecastArr = arr.forecast;
+                    $("#forecast-section").empty(); 
+
+
 
                     forecastArr.forEach((arr, index) => {
 
-                        $(`#city-${index}`).text(`${arr.date}`);
+                        // $(`#city-${index}`).text(`${arr.date}`);
     
-                        let iconUrl = `http://openweathermap.org/img/wn/${arr.icon}@2x.png`;
-                        $(`#icon-${index}`).attr("src", iconUrl);
+                        // let iconUrl = `http://openweathermap.org/img/wn/${arr.icon}@2x.png`;
+                        // $(`#icon-${index}`).attr("src", iconUrl);
     
-                        $(`#temp-${index}`).text(`Temp : ${arr.temp} °C`);
+                        // $(`#temp-${index}`).text(`Temp : ${arr.temp} °C`);
     
-                        $(`#wind-${index}`).text(`Wind : ${arr.wind} kph`);
+                        // $(`#wind-${index}`).text(`Wind : ${arr.wind} kph`);
     
-                        $(`#hum-${index}`).text(`Wind : ${arr.humidity} %`);
+                        // $(`#hum-${index}`).text(`Wind : ${arr.humidity} %`);
+
+                        let forecast = $("#forecast-section");
+
+                        let div1 = $("<div>");
+                        div1.attr("class",'col-md mb-3');
+                        let div2 = $("<div>");
+                        div2.attr("class",'card bg-dark text-light');
+                        let div3 = $("<div>");
+                        div3.attr("class",'card-body');
+    
+                        forecast.append(div1)
+                        div1.append(div2);
+                        div2.append(div3);
+    
+                            let h5 = $("<h5>");
+                            h5.text(`${arr.date}`);
+                            div3.append(h5);
+        
+                            let iconUrl = `http://openweathermap.org/img/wn/${arr.icon}@2x.png`;
+                            let icon = $("<img>");
+                            icon.attr("src", iconUrl);
+                            div3.append(icon);
+        
+                            let temp = $("<p>");
+                            temp.text(`Temp : ${arr.temp} °C`);
+                            div3.append(temp);
+        
+                            let wind = $("<p>");
+                            wind.text(`Wind : ${arr.wind} kph`);
+                            div3.append(wind);
+        
+                            let hum = $("<p>");
+                            hum.text(`Wind : ${arr.humidity} %`);
+                            div3.append(hum);     
 
                     })
 
