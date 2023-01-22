@@ -68,7 +68,9 @@ function weatherApiCall(city) {
 
         } else {
 
+            rejected.push(city);
             throw new Error('Unable to find city co-ordinates');
+
         }
        
 
@@ -120,6 +122,8 @@ function weatherApiCall(city) {
 
         let weatherOutput = new CityForecast(city, cityInput === undefined ? geoCityDefault : cityInput, currentDate, forecastArray);
 
+        renderHTML(weatherOutput);
+
         updateLocalStorage(weatherOutput);
 
         })
@@ -127,12 +131,86 @@ function weatherApiCall(city) {
     }).catch(function(error) {
 
         console.log(error.message);
-        rejected.push(city);
         
     });
+
     
 };
 
+
+//create a function to render HTML
+
+function renderHTML(city){
+
+    let today = $("#main-body");
+    today.empty();
+
+    let h1 = $("<h1>");
+    h1.text(`${city.city} (${city.currentDate})`);
+    today.append(h1);
+
+    let iconUrl = `https://openweathermap.org/img/wn/${city.forecast[0].icon}@2x.png`;
+    let icon = $("<img>");
+    icon.attr("src", iconUrl);
+    today.append(icon);
+
+    let temp = $("<p>");
+    temp.text(`Temp : ${city.forecast[0].temp} °C`);
+    today.append(temp);
+
+    let wind = $("<p>");
+    wind.text(`Wind : ${city.forecast[0].wind} kph`);
+    today.append(wind);
+
+    let hum = $("<p>");
+    hum.text(`Humidity : ${city.forecast[0].humidity} %`);
+    today.append(hum);
+
+    let forecastArr = city.forecast;
+    console.log(forecastArr)
+
+    $("#forecast-section").empty(); 
+
+    forecastArr.forEach((arr, index) => {
+   
+    let forecast = $("#forecast-section");
+
+    let div1 = $("<div>");
+    div1.attr("class",'col-md mb-3');
+    let div2 = $("<div>");
+    div2.attr("class",'card bg-dark text-light');
+    let div3 = $("<div>");
+    div3.attr("class",'card-body');
+
+    forecast.append(div1)
+    div1.append(div2);
+    div2.append(div3);
+
+        let h5 = $("<h5>");
+        h5.text(`${arr.date}`);
+        div3.append(h5);
+
+        let iconUrl = `https://openweathermap.org/img/wn/${arr.icon}@2x.png`;
+        let icon = $("<img>");
+        icon.attr("src", iconUrl);
+        div3.append(icon);
+
+        let temp = $("<p>");
+        temp.text(`Temp : ${arr.temp} °C`);
+        div3.append(temp);
+
+        let wind = $("<p>");
+        wind.text(`Wind : ${arr.wind} kph`);
+        div3.append(wind);
+
+        let hum = $("<p>");
+        hum.text(`Humidity : ${arr.humidity} %`);
+        div3.append(hum);                   
+
+    })
+
+
+};
 
 //create a function to update local storage with input
 
@@ -232,114 +310,25 @@ function loadCityHistory() {
         button.text(arr.city == 'London' ? arr.city : arr.searchTerm);
         div.append(button);
 
-    })
+    });
 
 };
 
 
 //create a function to render storage data
 
-
 function renderStorage(city) {
-
 
     let storage = localStorage.getItem("weatherForecast");
     let storageArr = JSON.parse(storage);
 
     if (storageArr != null) {
 
-        $("#main-body").empty();
-
         storageArr.forEach(arr => {
 
             if (arr.city == city) {
 
-                    let today = $("#main-body");
-
-                    // $("#city").text(`${arr.city} (${arr.currentDate})`);
-
-                    // let iconUrl = `http://openweathermap.org/img/wn/${arr.forecast[0].icon}@2x.png`;
-                    // $("#icon").attr("src",iconUrl)
-         
-                    // $("#temp").text(`Temp : ${arr.forecast[0].temp} °C`);
-
-                    // $("#wind").text(`Wind : ${arr.forecast[0].wind} kph`);
-
-                    // $("#hum").text(`Wind : ${arr.forecast[0].humidity} %`);
-
-                    let h1 = $("<h1>");
-                    h1.text(`${arr.city} (${arr.currentDate})`);
-                    today.append(h1);
-
-                    let iconUrl = `http://openweathermap.org/img/wn/${arr.forecast[0].icon}@2x.png`;
-                    let icon = $("<img>");
-                    icon.attr("src", iconUrl);
-                    today.append(icon);
-
-                    let temp = $("<p>");
-                    temp.text(`Temp : ${arr.forecast[0].temp} °C`);
-                    today.append(temp);
-
-                    let wind = $("<p>");
-                    wind.text(`Wind : ${arr.forecast[0].wind} kph`);
-                    today.append(wind);
-
-                    let hum = $("<p>");
-                    hum.text(`Wind : ${arr.forecast[0].humidity} %`);
-                    today.append(hum);
-
-                    let forecastArr = arr.forecast;
-                    $("#forecast-section").empty(); 
-
-                    forecastArr.forEach((arr, index) => {
-
-                        // console.log(`#city-${index}`)
-                        // $(`#city-${index}`).text(`${arr.date}`);
-    
-                        // let iconUrl = `http://openweathermap.org/img/wn/${arr.icon}@2x.png`;
-                        // $(`#icon-${index}`).attr("src", iconUrl);
-    
-                        // $(`#temp-${index}`).text(`Temp : ${arr.temp} °C`);
-    
-                        // $(`#wind-${index}`).text(`Wind : ${arr.wind} kph`);
-    
-                        // $(`#hum-${index}`).text(`Wind : ${arr.humidity} %`);   
-                    
-                    let forecast = $("#forecast-section");
-
-                    let div1 = $("<div>");
-                    div1.attr("class",'col-md mb-3');
-                    let div2 = $("<div>");
-                    div2.attr("class",'card bg-dark text-light');
-                    let div3 = $("<div>");
-                    div3.attr("class",'card-body');
-
-                    forecast.append(div1)
-                    div1.append(div2);
-                    div2.append(div3);
-
-                        let h5 = $("<h5>");
-                        h5.text(`${arr.date}`);
-                        div3.append(h5);
-    
-                        let iconUrl = `http://openweathermap.org/img/wn/${arr.icon}@2x.png`;
-                        let icon = $("<img>");
-                        icon.attr("src", iconUrl);
-                        div3.append(icon);
-    
-                        let temp = $("<p>");
-                        temp.text(`Temp : ${arr.temp} °C`);
-                        div3.append(temp);
-    
-                        let wind = $("<p>");
-                        wind.text(`Wind : ${arr.wind} kph`);
-                        div3.append(wind);
-    
-                        let hum = $("<p>");
-                        hum.text(`Wind : ${arr.humidity} %`);
-                        div3.append(hum);                   
-
-                    })
+                renderHTML(arr)
 
             } else {
 
@@ -364,7 +353,7 @@ function getResults(searchTerm){
 
         renderStorage('London');
 
-    } else if (cityArray.some(arr => arr['searchTerm'] == searchTerm)) {
+    } else if (cityArray.some(arr => arr['searchTerm'] == searchTerm && arr['currentDate'] == date)) {
 
         cityArray.forEach(arr => {
 
@@ -377,48 +366,22 @@ function getResults(searchTerm){
 
     } else {
 
-
     weatherApiCall(searchTerm == '' ? geoCityDefault : searchTerm);
 
-    setTimeout(()=>{cityHistory()},4000);
+    setTimeout(()=>{
 
-    clearTimeout();
+    if ($(`[data-set="${searchTerm}"]`).length === 0 && rejected.includes(searchTerm) === false) {
 
-    setTimeout(()=> {
-
-    if (cityArray.some(arr => arr['searchTerm'] == searchTerm)) {
-
-        cityArray.forEach(arr => {
-
-            if (arr.searchTerm == searchTerm) {
-
-                renderStorage(arr.city)
-
-            } else {
-
-                return
-
-            }
-        })
+        let div = $('#history');
+        let button = $("<button>");
+        button.addClass('btn search-button search-history btn-secondary m-2');
+        button.attr("data-set", searchTerm)
+        button.text(searchTerm);
+        div.append(button);
         
+        }
 
-    } 
-
-
-if ($(`[data-set="${searchTerm}"]`).length === 0 && rejected.includes(searchTerm) === false) {
-        
-    let div = $('#history');
-    let button = $("<button>");
-    button.addClass('btn search-button search-history btn-secondary m-2');
-    button.attr("data-set", searchTerm)
-    button.text(searchTerm);
-    div.append(button);
-    
-}
-
-},8000)
-
-clearTimeout();
+    },100);
 
     }
 
@@ -435,11 +398,10 @@ $(document).ready(function(){
 /* IIFE */
 (function initialise() {
 
-    weatherApiCall();
-    setTimeout(function(){ renderStorage('London');
+    weatherApiCall('London');
     cityHistory();
     loadCityHistory();
-},3000)
+
 
 })();
 
@@ -477,9 +439,6 @@ $(document).on('click','.search-history',function(event){
 
 
 });
-
-
-
 
 
 
