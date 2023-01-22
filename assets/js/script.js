@@ -167,7 +167,14 @@ function renderHTML(city){
     today.append(hum);
 
     let forecastArr = city.forecast;
-    console.log(forecastArr)
+    console.log(forecastArr);
+
+    let subtitle = $("#forecast");
+    let h3 = $("<h3>");
+    h3.text('5-Day Forecast:');
+    h3.attr('style','font-weight: bold');
+    h3.addClass('ml-5 mb-4');
+    subtitle.prepend(h3);
 
     $("#forecast-section").empty(); 
 
