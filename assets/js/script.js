@@ -291,6 +291,8 @@ function cityHistory() {
     //create an empty array and push instance of storage object
     let array = [];   
 
+    if(storageArr != null) {
+
     storageArr.forEach(arr => {
 
         if (arr.city != 'London'){
@@ -300,6 +302,8 @@ function cityHistory() {
         } else {return};
         
     })
+
+}
 
     cityArray = array;
 
@@ -428,7 +432,11 @@ $("#search-button").on('click',function(event){
     //clear searchTerm from input element
     $("#search-input").val('');
 
+    if(searchTerm != '') {
+        
     getResults(searchTerm);
+
+    };
 
 })
 
