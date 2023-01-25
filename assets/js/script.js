@@ -69,6 +69,10 @@ function weatherApiCall(city) {
         } else {
 
             rejected.push(city);
+
+            //display message on users screen
+            alert("Please enter a valid city");
+            
             throw new Error('Unable to find city co-ordinates');
 
         }
@@ -131,7 +135,6 @@ function weatherApiCall(city) {
     }).catch(function(error) {
 
         console.log(error.message);
-        alert("Please enter a valid city");
         
     });
 
