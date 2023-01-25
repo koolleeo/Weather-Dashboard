@@ -167,7 +167,6 @@ function renderHTML(city){
     today.append(hum);
 
     let forecastArr = city.forecast;
-    console.log(forecastArr);
 
     $(".subtitle").empty();
 
