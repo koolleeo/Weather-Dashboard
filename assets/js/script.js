@@ -185,9 +185,10 @@ function renderHTML(city){
     let forecast = $("#forecast-section");
 
     let div1 = $("<div>");
-    div1.attr("class",'col-md mb-3');
+    div1.attr("class",'col col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2" mb-3 ml-3 mr-3 justify-content-centre');
     let div2 = $("<div>");
     div2.attr("class",'card bg-dark text-light');
+    div2.attr("style","width: 100%; min-width: 10rem; height: 100%;")
     let div3 = $("<div>");
     div3.attr("class",'card-body');
 
@@ -218,8 +219,8 @@ function renderHTML(city){
 
     })
 
-
 };
+
 
 //create a function to update local storage with input
 
