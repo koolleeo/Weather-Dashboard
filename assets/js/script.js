@@ -131,6 +131,7 @@ function weatherApiCall(city) {
     }).catch(function(error) {
 
         console.log(error.message);
+        alert("Please enter a valid city");
         
     });
 
